@@ -132,11 +132,12 @@ services:
     restart: always
     # CHANGEME: row below to secure redis password
     command: >
+      --port 6378
       --requirepass ${REDIS_AUTH:-myredissecret}
     ports:
       - 127.0.0.1:6378:6378
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: ["CMD", "redis-cli", "-p", "6378", "ping"]
       interval: 3s
       timeout: 10s
       retries: 10
